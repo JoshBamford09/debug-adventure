@@ -3,8 +3,8 @@ const Character = require('./character');
 
 function Enemy(config) {
   Character.call(this, config);
-  damage = config.damage;
-}
+  this.damage = config.damage;
+};
 
 Enemy.prototype = Object.create(Character.prototype);
 
@@ -15,12 +15,12 @@ Object.defineProperty(Enemy.prototype, 'constructor', {
 });
 
 Enemy.prototype._describeAttack = function (target) {
-  `${this.name} lets out a ${this.dialogue}, and hits ${target.name} for ${this.damage} damage!`;
+  return `${this.name} lets out a ${this.dialogue}, and hits ${target.name} for ${this.damage} damage!`;
+};
 
-
-enemy.prototype.attack = function (target) {
-  target._takeDamage(damage);
-  return this._describeAttack(target);
+Enemy.prototype.attack = function (victim) {
+  victim._takeDamage(this.damage);
+  return this._describeAttack(victim);
 };
 
 module.exports = Enemy;
